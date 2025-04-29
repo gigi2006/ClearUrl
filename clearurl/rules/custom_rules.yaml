@@ -1,0 +1,98 @@
+# Benutzerdefinierte Regeln
+# Hier können eigene Regeln hinzugefügt werden, die bei Updates nicht überschrieben werden
+
+hosts:
+  # Social Media Plattformen
+  "facebook.com": &facebook
+    query:
+      - ref
+      - hc_ref
+      - hc_location
+      - fref
+      - fb_dtsg_ag
+      - fb_source
+      - fb_collection_id
+      - fb_story_location
+    fragment: true
+
+  "m.facebook.com": *facebook
+  
+  "linkedin.com": &linkedin
+    query:
+      - originalSubdomain
+      - trk
+      - trkInfo
+      - lipi
+      - li_fat_id
+    fragment: true
+    
+  "www.linkedin.com": *linkedin
+  
+  "youtube.com": &youtube
+    query:
+      - feature
+      - kw
+      - app
+      - embeds_referring_euri
+      - embeds_referring_origin
+      - pp
+      - ab_channel
+    fragment: true
+    
+  "www.youtube.com": *youtube
+  "m.youtube.com": *youtube
+  
+  # E-Commerce
+  "amazon.com": &amazon
+    query:
+      - ref
+      - ref_
+      - pd_rd_w
+      - pd_rd_r
+      - pd_rd_wg
+      - pf_rd_p
+      - pf_rd_r
+      - pf_rd_s
+      - pf_rd_t
+      - pf_rd_i
+      - linkCode
+    fragment: true
+    
+  "www.amazon.com": *amazon
+  "www.amazon.de": *amazon
+  "www.amazon.co.uk": *amazon
+  "www.amazon.fr": *amazon
+  
+  # Nachrichtenwebsites
+  "nytimes.com": &nytimes
+    query:
+      - algo
+      - emc
+      - ref
+      - login
+      - auth
+      - partner
+      - impression_id
+    fragment: true
+    
+  "www.nytimes.com": *nytimes
+
+# Zusätzliche allgemeine tracking Parameter
+additional_params:
+  - ref_src
+  - ref_url
+  - source_id
+  - source_type
+  - src_id
+  - track_id
+  - tracking
+  - xtor
+  - gs_l
+  - mkt_id
+  - usqp
+  - dclid
+  - zanpid
+  - msclkid
+  
+# Füge die zusätzlichen Parameter zu den default-Regeln hinzu
+default: []

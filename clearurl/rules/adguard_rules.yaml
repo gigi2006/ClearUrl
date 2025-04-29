@@ -1,0 +1,14 @@
+# Diese Datei wird automatisch durch den Updater aktualisiert
+# Manuelle Änderungen werden überschrieben
+# Zuletzt aktualisiert: noch nie
+
+hosts: {}
+
+default: []
+
+sets:
+  adguard-trackparams:
+    ref: adguard-trackparams
+    list: []
+
+last_updated: '2025-04-29 00:00:00'

@@ -1,0 +1,123 @@
+hosts:
+  "www.douban.com": &douban
+    query:
+      - source
+      - dt_dapp
+      - dt_platform
+      - bid
+      - from
+      - isappinstalled
+    fragment: false
+
+  "m.douban.com": *douban
+
+  "moive.douban.com": *douban
+
+  "twitter.com":
+    query:
+      - s
+    fragment: false
+
+  "t.co":
+    query:
+      - ssr
+    fragment: false
+
+  "www.bilibili.com": &bilibili
+    query:
+      - share_source
+      - share_medium
+      - bbid
+      - ts
+    fragment: false
+
+  "m.bilibili.com": *bilibili
+
+  # Weitere beliebte Seiten
+  "google.com": &google
+    query:
+      - ved
+      - ei
+      - biw
+      - bih
+      - sa
+      - source
+      - uact
+      - cd
+      - cad
+      - gws_rd
+      - sei
+    fragment: true
+
+  "www.google.com": *google
+  "google.de": *google
+  "www.google.de": *google
+
+  "instagram.com": &instagram
+    query:
+      - igshid
+      - reel_video_timestamp
+      - utm_source
+      - utm_campaign
+      - utm_medium
+    fragment: true
+
+  "www.instagram.com": *instagram
+
+  "reddit.com": &reddit
+    query:
+      - context
+      - ref
+      - ref_source
+      - utm_source
+      - utm_medium
+      - utm_name
+      - utm_term
+      - utm_content
+    fragment: true
+
+  "www.reddit.com": *reddit
+
+sets:
+  google-analytics: &google-analytics
+    - fbclid
+    - gclid
+    - igshid
+    - _hsenc
+    - _hsmi
+    - ICID
+    - mc_cid
+    - mc_eid
+    - mkt_tok
+    - utm_source
+    - utm_medium
+    - utm_term
+    - utm_campaign
+    - utm_content
+    - utm_cid
+    - utm_reader
+    - utm_referrer
+    - utm_name
+    - utm_social
+    - utm_social-type
+
+  common-tracking: &common-tracking
+    - clickid
+    - affiliateid
+    - affid
+    - sharedid
+    - source
+    - source_id
+    - srsltid
+    - trackingid
+    - trk_contact
+    - trk_module
+    - trk_sid
+    - track
+    - tracking
+    - ref
+    - referral
+    - referer
+    - referrer
+
+default: *google-analytics

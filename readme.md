@@ -1,30 +1,95 @@
-# Clear Url
+# ClearURL
 
-删除URL中的跟踪参数
+Ein effizienter URL-Cleaner zum Entfernen von Tracking-Parametern aus URLs.
 
-```python3
+## Features
+
+- Entfernt bekannte Tracking-Parameter aus URLs
+- Verwendet die aktuellen [AdGuard TrackParam Filter](https://github.com/AdguardTeam/AdguardFilters/tree/master/TrackParamFilter)
+- Automatische Erkennung von unnötigen Parametern
+- Selbstlernfunktion zur Verbesserung der Regeln
+- Einfache Integration als Bibliothek oder Kommandozeilen-Tool
+
+## Installation
+
+```bash
+pip install clearurl
+```
+
+## Verwendung
+
+### Als Kommandozeilen-Tool
+
+```bash
+# Einfache Verwendung
+clearurl "https://www.example.com/page?id=123&utm_source=newsletter"
+
+# Mit JSON-Ausgabe
+clearurl "https://www.example.com/page?id=123&utm_source=newsletter" --json
+
+# Nur Regeln verwenden
+clearurl "https://www.example.com/page?id=123&utm_source=newsletter" --mode rule
+
+# AdGuard-Regeln aktualisieren
+clearurl --update
+```
+
+### Als Python-Bibliothek
+
+```python
 from clearurl import Filter
 
+# Einfache Verwendung
 filter = Filter()
-filter.filter_url("http://xxxx?source=github")
->>> http://xxxx
+clean_url = filter.filter_url("https://www.example.com/page?id=123&utm_source=newsletter")
+
+# Verschiedene Modi
+filter.filter_url(url, mode="rule")  # Nur Regeln verwenden
+filter.filter_url(url, mode="auto")  # Nur automatisch erkennen
+filter.filter_url(url, mode="full")  # Beides verwenden
+
+# AdGuard-Regeln deaktivieren
+filter = Filter(use_adguard=False)
+
+# Selbstlernfunktion deaktivieren
+filter = Filter(self_study=False)
 ```
 
-# demo
+## Regeln
 
+ClearURL verwendet Regeln in YAML-Format. Es gibt drei Arten von Regeln:
+
+1. **Host-spezifische Regeln**: Gelten nur für bestimmte Hosts/Domains
+2. **Standardregeln**: Gelten für alle Hosts, wenn keine spezifische Regel gefunden wird
+3. **AdGuard-Regeln**: Werden automatisch aus den AdGuard TrackParam-Filtern generiert
+
+Die Regeln werden in folgender Priorität angewendet:
+1. Host-spezifische Regeln
+2. AdGuard-Regeln
+3. Standardregeln
+4. Automatische Erkennung (falls aktiviert)
+
+## Entwicklung
+
+### Voraussetzungen
+
+- Python 3.7 oder höher
+- Pip für die Installation der Abhängigkeiten
+
+### Setup
+
+```bash
+git clone https://github.com/yourusername/clearurl.git
+cd clearurl
+pip install -e .
 ```
-> curl "https://quiet-wave-55460.herokuapp.com/clear?url=https://tmr.js.org/p/cf9279f8/?referer=test"
-{"data":"https://tmr.js.org/p/cf9279f8/"}
+
+### Tests ausführen
+
+```bash
+pytest
 ```
 
-# More
+## Lizenz
 
-https://github.com/jparise/chrome-utm-stripper
-
-[分享更清爽的链接，可以试试这个 Android 小工具：清净分享 | App+1](https://sspai.com/post/45317)
-
-[ClearURLs – 自动删除 URL 中跟踪字段[Chrome/Firefox]](https://www.appinn.com/clearurls-for-chrome-and-firefox/)
-
-[【小书签】链接地址强力净化:sparkling_heart:与油猴脚本同步更新](https://meta.appinn.net/t/topic/3130)
-
-[[Chrome/Firefox 扩展] Neat URL - 净化链接无用参数](https://meta.appinn.net/t/topic/6690)
+Dieses Projekt steht unter der MIT-Lizenz - siehe die [LICENSE](LICENSE) Datei für Details.

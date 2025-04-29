@@ -1,0 +1,26 @@
+include LICENSE
+include README.md
+include requirements.txt
+include setup.py
+include .gitignore
+include MANIFEST.in
+
+# Test-Dateien
+recursive-include test_*.py
+
+# GitHub-Workflows
+recursive-include .github *.yml
+
+# Paket-Daten
+recursive-include clearurl *.py
+recursive-include clearurl/rules *.yaml
+
+# Bin-Skripte
+recursive-include bin *
+
+# Exclude temporäre Dateien
+global-exclude *.py[cod]
+global-exclude __pycache__
+global-exclude *.so
+global-exclude .*.swp
+global-exclude .DS_Store
