@@ -255,27 +255,33 @@ class Filter(object):
             True, wenn die URL geändert wurde, sonst False
         """
         try:
-            content = get_url_content(self.url.get_url())
+            # Hole den Inhalt der ursprünglichen URL
+            original_content = get_url_content(self.url.get_url())
             differ = SequenceMatcher()
-            differ.set_seq1(content)
+            differ.set_seq1(original_content)
             
             # Prüfe jeden Parameter einzeln
             remove_list = []
-            for k in self.url.query_dict:
+            for k in list(self.url.query_dict.keys()):
+                # Erstelle eine URL ohne diesen Parameter
                 select_query_dict = self.url.query_dict.copy()
                 select_query_dict.pop(k)
                 select_url = self.url.copy()
                 select_url.query_dict = select_query_dict
+                
+                # Hole den Inhalt der modifizierten URL
                 select_content = get_url_content(select_url.get_url())
                 differ.set_seq2(select_content)
                 
                 # Wenn die Seiten ähnlich genug sind, ist der Parameter nicht notwendig
-                if differ.ratio() > 0.5:
+                # Ein Schwellenwert von 0.95 erfordert eine sehr hohe Ähnlichkeit
+                if differ.ratio() > 0.95:
                     remove_list.append(k)
                     
             # Entferne die identifizierten Parameter
             for k in remove_list:
-                self.url.query_dict.pop(k)
+                if k in self.url.query_dict:
+                    self.url.query_dict.pop(k)
                 
             # Lerne neue Regeln, falls aktiviert
             if self.study and remove_list:
